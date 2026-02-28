@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot it! / Dobble Generator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <div>
+                    <h1>Spot it! / Dobble Generator</h1>
+                    <p class="subtitle" data-i18n="subtitle">Erstelle dein eigenes Kartenspiel</p>
+                </div>
+            </div>
+            <button id="btn-lang" class="lang-toggle" title="Switch to English">
+                <img class="flag-icon" id="flag-icon" src="uk-icon.png" alt="Language">
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sidebar / Settings -->
+        <aside id="sidebar">
+            <section class="panel">
+                <h2><span class="material-icons-outlined panel-icon">tune</span> <span data-i18n="variantTitle">Variante wählen</span></h2>
+                <div class="variant-grid">
+                    <button class="variant-btn" data-n="2" data-symbols="3" data-cards="7">
+                        <span class="variant-name">Mini</span>
+                        <span class="variant-info" data-i18n="variantMini">3 Symbole · 7 Karten</span>
+                    </button>
+                    <button class="variant-btn" data-n="3" data-symbols="4" data-cards="13">
+                        <span class="variant-name" data-i18n="variantSmall">Klein</span>
+                        <span class="variant-info" data-i18n="variantSmallInfo">4 Symbole · 13 Karten</span>
+                    </button>
+                    <button class="variant-btn" data-n="5" data-symbols="6" data-cards="31">
+                        <span class="variant-name" data-i18n="variantMedium">Mittel</span>
+                        <span class="variant-info" data-i18n="variantMediumInfo">6 Symbole · 31 Karten</span>
+                    </button>
+                    <button class="variant-btn active" data-n="7" data-symbols="8" data-cards="57">
+                        <span class="variant-name">Original</span>
+                        <span class="variant-info" data-i18n="variantOriginalInfo">8 Symbole · 57 Karten</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2><span class="material-icons-outlined panel-icon">collections</span> <span data-i18n="imagesTitle">Bilder verwalten</span> <button id="btn-clear-images" class="btn-clear-all" data-i18n-title="clearAllImages" title="Alle Bilder entfernen"><span class="material-icons-outlined">close</span></button></h2>
+                <div id="image-status" class="image-status">
+                    <span id="image-count">0</span> / <span id="image-needed">57</span> <span data-i18n="imagesLoaded">Bilder geladen</span>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="button-row">
+                    <button id="btn-load-defaults" class="btn btn-secondary"><span class="material-icons-outlined btn-icon">inventory_2</span> <span data-i18n="loadDefaults">Standardbilder laden</span></button>
+                    <label class="btn btn-primary" for="file-upload"><span class="material-icons-outlined btn-icon">cloud_upload</span> <span data-i18n="uploadImages">Eigene Bilder hochladen</span></label>
+                    <input type="file" id="file-upload" accept="image/*" multiple hidden>
+                </div>
+                <div id="image-gallery" class="image-gallery"></div>
+            </section>
+
+            <section class="panel">
+                <h2><span class="material-icons-outlined panel-icon">settings</span> <span data-i18n="optionsTitle">Optionen</span></h2>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="chk-size-variation" checked>
+                    <span data-i18n="optSize">Zufällige Größenvariation</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="chk-pos-jitter" checked>
+                    <span data-i18n="optPosition">Zufällige Positionsversetzung</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="chk-round-images" checked>
+                    <span data-i18n="optRound">Runde Bilder</span>
+                </label>
+            </section>
+
+            <section class="panel">
+                <h2><span class="material-icons-outlined panel-icon">play_circle</span> <span data-i18n="generateTitle">Generieren</span></h2>
+                <button id="btn-generate" class="btn btn-accent btn-large" disabled><span class="material-icons-outlined btn-icon">auto_awesome</span> <span data-i18n="generateBtn">Karten generieren</span></button>
+                <button id="btn-export-pdf" class="btn btn-primary btn-large" style="display:none"><span class="material-icons-outlined btn-icon">picture_as_pdf</span> <span data-i18n="exportBtn">Als PDF exportieren</span></button>
+            </section>
+        </aside>
+
+        <!-- Card Preview Area -->
+        <section id="card-preview">
+            <div id="placeholder" class="placeholder">
+                <dotlottie-player id="lottie-placeholder"
+                    src="https://lottie.host/71b88e9b-9275-4dfb-b4e6-1d775d022353/yTuX7N31Dq.lottie"
+                    background="transparent"
+                    speed="1"
+                    style="width: 220px; height: 220px;"
+                    loop autoplay>
+                </dotlottie-player>
+                <h2 data-i18n="welcomeTitle">Willkommen beim Spot it! Generator</h2>
+                <div class="placeholder-steps">
+                    <div class="step"><span class="step-num">1</span> <span data-i18n="step1">Wähle eine Variante links aus</span></div>
+                    <div class="step"><span class="step-num">2</span> <span data-i18n="step2">Lade Bilder hoch oder nutze die Standardbilder</span></div>
+                    <div class="step"><span class="step-num">3</span> <span data-i18n="step3">Klicke auf "Karten generieren"</span></div>
+                </div>
+            </div>
+            <div id="cards-container" class="cards-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>This site is not affiliated in any way with Dobble, Spot It!, its creators or distributors.</p>
+        <p>Dobble and Spot It! are trademarks of <strong>ASMODEE GROUP</strong>.</p>
+    </footer>
+
+    <!-- Print layout (hidden, used for PDF) -->
+    <div id="print-area" class="print-area"></div>
+
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="dobble.js"></script>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
