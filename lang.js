@@ -65,7 +65,7 @@
             exportBtn: 'Export as PDF',
             welcomeTitle: 'Welcome to the Spot it! Generator',
             step1: 'Choose a variant on the left',
-            step2: 'Upload images or use the defaults',
+            step2: 'Upload images',
             step3: 'Click "Generate cards"',
             clearAllImages: 'Remove all images',
             toastDefaultsLoaded: 'Default images loaded!',

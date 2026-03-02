@@ -710,6 +710,10 @@ main {
         padding: 16px;
     }
 
+    #card-preview {
+        order: -1;
+    }
+
     #sidebar {
         width: 100%;
         min-width: unset;
