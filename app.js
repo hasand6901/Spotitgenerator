@@ -200,6 +200,7 @@
         els.placeholder.style.display = 'none';
         renderCards();
         state.generated = true;
+        document.getElementById('card-preview').classList.add('generated');
         els.btnExport.style.display = 'block';
         showToast(getLang('toastGenerated', { n: state.deck.length }), 'success');
     });
